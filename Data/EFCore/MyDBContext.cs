@@ -11,5 +11,6 @@ namespace DotNetCoreWebApiRepositoryPattern.Models.EFCore
         }
 
         public DbSet<Movie> Movie { get; set; }
+        public DbSet<Star> Star { get; set; }
     }
 }

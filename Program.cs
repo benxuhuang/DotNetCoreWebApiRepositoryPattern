@@ -9,6 +9,7 @@ builder.Services.AddDbContext<MyDBContext>(options =>
 
 // Add services to the container.
 builder.Services.AddScoped<EfCoreMovieRepository>();
+builder.Services.AddScoped<EfCoreStarRepository>();
 
 builder.Services.AddControllers();
 

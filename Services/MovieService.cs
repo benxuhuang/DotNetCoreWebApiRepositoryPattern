@@ -1,6 +1,7 @@
 
 using DotNetCoreWebApiRepositoryPattern.Data;
 using DotNetCoreWebApiRepositoryPattern.Models;
+using MyMusic.Api.Validations;
 
 namespace DotNetCoreWebApiRepositoryPattern.Services
 {
@@ -15,14 +16,19 @@ namespace DotNetCoreWebApiRepositoryPattern.Services
 
         public async Task<Movie> Create(Movie entity)
         {
+            var validator = new MovieValidator();
+            var validationResult = await validator.ValidateAsync(entity);
+            if (!validationResult.IsValid)
+                throw new Exception(validationResult.Errors.ToString());
+
             await _unitOfWork.MovieRep.AddAsync(entity);
+
             return entity;
         }
 
         public async Task Delete(Movie entity)
         {
-            _unitOfWork.MovieRep.Remove(entity);
-            await _unitOfWork.CommitAsync();
+            await _unitOfWork.MovieRep.Remove(entity);
         }
 
         public async Task<IEnumerable<Movie>> GetAll()

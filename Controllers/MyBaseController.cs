@@ -1,73 +1,61 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using DotNetCoreWebApiRepositoryPattern.Data;
+using DotNetCoreWebApiRepositoryPattern.Services;
 
 namespace DotNetCoreWebApiRepositoryPattern.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public abstract class MyBaseController<TEntity, TRepository> : ControllerBase
-        where TEntity : class, IEntity
-        where TRepository : IRepository<TEntity>
+    public abstract class MyBaseController<TEntity> : ControllerBase
+    where TEntity : class
     {
-        private readonly TRepository repository;
+        private readonly IService<TEntity> _service;
 
-        public MyBaseController(TRepository repository)
+        public MyBaseController(IService<TEntity> service)
         {
-            this.repository = repository;
+            this._service = service;
         }
-
 
         // GET: api/[controller]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TEntity>>> Get()
         {
-            return await repository.GetAll();
+            var list = await _service.GetAll();
+            return Ok(list);
         }
 
         // GET: api/[controller]/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TEntity>> Get(int id)
         {
-            var movie = await repository.Get(id);
-            if (movie == null)
-            {
+            var item = await _service.GetById(id);
+            if (item == null)
                 return NotFound();
-            }
-            return movie;
+            return Ok(item);
         }
 
         // PUT: api/[controller]/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, TEntity movie)
+        public async Task<IActionResult> Put(int id, TEntity item)
         {
-            if (id != movie.Id)
-            {
-                return BadRequest();
-            }
-            await repository.Update(movie);
-            return NoContent();
+            var updatedItem = await _service.Update(id, item);
+            return Ok(updatedItem);
         }
 
         // POST: api/[controller]
         [HttpPost]
-        public async Task<ActionResult<TEntity>> Post(TEntity movie)
+        public async Task<ActionResult<TEntity>> Post(TEntity item)
         {
-            await repository.Add(movie);
-            return CreatedAtAction("Get", new { id = movie.Id }, movie);
+            var createdItem = await _service.Create(item);
+            return Ok(createdItem);
         }
 
         // DELETE: api/[controller]/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TEntity>> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var movie = await repository.Delete(id);
-            if (movie == null)
-            {
-                return NotFound();
-            }
-            return movie;
+            var item = await _service.GetById(id);
+            await _service.Delete(item);
+            return NoContent();
         }
 
     }

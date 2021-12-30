@@ -1,5 +1,7 @@
+using DotNetCoreWebApiRepositoryPattern.Data;
 using DotNetCoreWebApiRepositoryPattern.Data.EFCore;
 using DotNetCoreWebApiRepositoryPattern.Models.EFCore;
+using DotNetCoreWebApiRepositoryPattern.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,9 @@ builder.Services.AddDbContext<MyDBContext>(options =>
 // Add services to the container.
 builder.Services.AddScoped<EfCoreMovieRepository>();
 builder.Services.AddScoped<EfCoreStarRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IMovieService, MovieService>();
+builder.Services.AddTransient<IStarService, StarService>();
 
 builder.Services.AddControllers();
 

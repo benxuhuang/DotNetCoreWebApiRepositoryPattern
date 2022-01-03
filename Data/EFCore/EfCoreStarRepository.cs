@@ -3,13 +3,11 @@ using DotNetCoreWebApiRepositoryPattern.Models.EFCore;
 
 namespace DotNetCoreWebApiRepositoryPattern.Data.EFCore
 {
-    public class EfCoreStarRepository : EfCoreRepository<Star, MyDBContext>
+    public class EfCoreStarRepository : EfCoreRepository<Star, MyDBContext>, IEfCoreStarRepository
     {
-        private readonly MyDBContext _context;
-
         public EfCoreStarRepository(MyDBContext context) : base(context)
         {
-            this._context = context;
+
         }
     }
 }

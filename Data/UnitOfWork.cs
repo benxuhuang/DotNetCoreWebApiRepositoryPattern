@@ -15,9 +15,9 @@ namespace DotNetCoreWebApiRepositoryPattern.Data
             this._contenxt = context;
         }
 
-        public EfCoreMovieRepository MovieRep => _movieRep ?? new EfCoreMovieRepository(_contenxt);
+        public IEfCoreMovieRepository MovieRep => _movieRep ?? new EfCoreMovieRepository(_contenxt);
 
-        public EfCoreStarRepository StarRep => _starRep ?? new EfCoreStarRepository(_contenxt);
+        public IEfCoreStarRepository StarRep => _starRep ?? new EfCoreStarRepository(_contenxt);
 
         public async Task<int> CommitAsync()
         {

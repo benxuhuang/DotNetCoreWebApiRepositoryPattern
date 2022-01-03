@@ -4,8 +4,8 @@ namespace DotNetCoreWebApiRepositoryPattern.Data
 {
     public interface IUnitOfWork : IDisposable
     {
-        EfCoreMovieRepository MovieRep { get; }
-        EfCoreStarRepository StarRep { get; }
+        IEfCoreMovieRepository MovieRep { get; }
+        IEfCoreStarRepository StarRep { get; }
         Task<int> CommitAsync();
     }
 }

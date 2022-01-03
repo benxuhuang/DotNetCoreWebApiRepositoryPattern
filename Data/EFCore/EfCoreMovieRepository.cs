@@ -4,13 +4,16 @@ using DotNetCoreWebApiRepositoryPattern.Models.EFCore;
 
 namespace DotNetCoreWebApiRepositoryPattern.Data.EFCore
 {
-    public class EfCoreMovieRepository : EfCoreRepository<Movie, MyDBContext>
+    public class EfCoreMovieRepository : EfCoreRepository<Movie, MyDBContext>, IEfCoreMovieRepository
     {
-        private readonly MyDBContext _context;
-
         public EfCoreMovieRepository(MyDBContext context) : base(context)
         {
-            this._context = context;
+
+        }
+
+        public void DoSomethingSpecial()
+        {
+            base._context.Set<Movie>().ToList();
         }
     }
 }

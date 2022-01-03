@@ -33,12 +33,12 @@ namespace DotNetCoreWebApiRepositoryPattern.Services
 
         public async Task<IEnumerable<Movie>> GetAll()
         {
-            return await _unitOfWork.MovieRep.GetAll();
+            return await _unitOfWork.MovieRep.GetAllAsync();
         }
 
         public async Task<Movie> GetById(int id)
         {
-            return await _unitOfWork.MovieRep.Get(id);
+            return await _unitOfWork.MovieRep.GetByIdAsync(id);
         }
 
         public async Task<Movie> Update(int id, Movie entity)

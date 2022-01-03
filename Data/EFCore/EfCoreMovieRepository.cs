@@ -6,10 +6,11 @@ namespace DotNetCoreWebApiRepositoryPattern.Data.EFCore
 {
     public class EfCoreMovieRepository : EfCoreRepository<Movie, MyDBContext>
     {
+        private readonly MyDBContext _context;
+
         public EfCoreMovieRepository(MyDBContext context) : base(context)
         {
-
+            this._context = context;
         }
-        // We can add new methods specific to the movie repository here in the future
     }
 }

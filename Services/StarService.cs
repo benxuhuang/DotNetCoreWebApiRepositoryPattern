@@ -27,12 +27,12 @@ namespace DotNetCoreWebApiRepositoryPattern.Services
 
         public async Task<IEnumerable<Star>> GetAll()
         {
-            return await _unitOfWork.StarRep.GetAll();
+            return await _unitOfWork.StarRep.GetAllAsync();
         }
 
         public async Task<Star> GetById(int id)
         {
-            return await _unitOfWork.StarRep.Get(id);
+            return await _unitOfWork.StarRep.GetByIdAsync(id);
         }
 
         public async Task<Star> Update(int id, Star entity)

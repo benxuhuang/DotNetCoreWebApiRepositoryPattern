@@ -1,4 +1,6 @@
 using AutoMapper;
+using DotNetCoreWebApiRepositoryPattern.Models;
+using DotNetCoreWebApiRepositoryPattern.Resources;
 
 namespace DotNetCoreWebApiRepositoryPattern.Mapping
 {
@@ -6,7 +8,7 @@ namespace DotNetCoreWebApiRepositoryPattern.Mapping
     {
         public MappingProfile()
         {
-
+            CreateMap<Movie, MovieResource>();
         }
     }
 }

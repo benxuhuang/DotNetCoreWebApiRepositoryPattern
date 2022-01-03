@@ -18,19 +18,17 @@ namespace DotNetCoreWebApiRepositoryPattern.Controllers
 
         // GET: api/[controller]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TEntity>>> Get()
+        public virtual async Task<ActionResult<IEnumerable<TEntity>>> Get()
         {
             var list = await _service.GetAll();
-
             return Ok(list);
         }
 
         // GET: api/[controller]/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TEntity>> Get(int id)
+        public virtual async Task<ActionResult<TEntity>> Get(int id)
         {
             var item = await _service.GetById(id);
-
             if (item == null)
                 return NotFound();
 
@@ -39,7 +37,7 @@ namespace DotNetCoreWebApiRepositoryPattern.Controllers
 
         // POST: api/[controller]
         [HttpPost]
-        public async Task<ActionResult<TEntity>> Post(TEntity item)
+        public virtual async Task<ActionResult<TEntity>> Post(TEntity item)
         {
             try
             {
@@ -54,7 +52,7 @@ namespace DotNetCoreWebApiRepositoryPattern.Controllers
 
         // PUT: api/[controller]/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, TEntity item)
+        public virtual async Task<IActionResult> Put(int id, TEntity item)
         {
             if (id != item.Id)
                 return BadRequest();
@@ -66,7 +64,7 @@ namespace DotNetCoreWebApiRepositoryPattern.Controllers
 
         // DELETE: api/[controller]/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public virtual async Task<ActionResult> Delete(int id)
         {
             var item = await _service.GetById(id);
 
